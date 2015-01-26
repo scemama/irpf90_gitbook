@@ -1,11 +1,13 @@
-Overview of IRPF90
-==================
+The Implicit Reference to Parameters method
+===========================================
 
-A scientific program (or sub-program) is a complicated function
-of its data. One can represent the program as a tree whose root
-is the output and whose leaves are the data. The nodes are the intermediate variables, and the vertices represent the *needs/needed_by* relationships.
+A scientific program (or sub-program) is a complicated function of its data.
+One can represent the program as a tree whose root is the output and whose
+leaves are the data. The nodes are the intermediate variables, and the vertices
+represent the *needs/needed_by* relationships.
 
-Let us consider a program which computes `t( u(d1,d2), v(u(d3,d4), w(d5)) )` with
+Let us consider a program which computes `t( u(d1,d2), v(u(d3,d4), w(d5)) )`
+with
 
 ```
 u(x)   = x + y + 1
@@ -18,17 +20,18 @@ This program can be represented with the following tree:
 
 ![](tree.svg)
 
-Writing the program in Fortran would require the programmer to
-have this tree in mind:
+Writing the program in Fortran would require the programmer to have this tree
+in mind:
 
 ``` Fortran
-program calcule_t
+program compute_t
     implicit none
 
     integer :: d1, d2, d3, d4 d5  ! Input data
     integer :: u1, u2, v, w, t    ! Computed entities
     
     call read_data(d1,d2,d3,d4,d5)
+
     call compute_u(d1,d2,u1)
     call compute_u(d3,d4,u2)
     call compute_w(d5,w)
@@ -40,35 +43,117 @@ program calcule_t
 end program
 ```
 
-This way of programming is imperative : the programmer tells
-the machine how its internal state will change by giving
-step-by-step instructions. If the instructions are not given 
-in the proper order, the program is wrong. Therefore, at each
-line the programmer has to be aware of the full state of the
-program, which results from the *needs/needed_by* relationships of the variables.
-Imperative programming is done by exploring the tree from the leaves to the root.
+This way of programming is imperative : the programmer tells the machine how
+its internal state will change by giving step-by-step instructions. If the
+instructions are not given in the proper order, the program is wrong.
+Therefore, at each line the programmer has to be aware of the full state of the
+program, which results from the *needs/needed_by* relationships of the
+variables.  Imperative programming is done by exploring the tree from the
+leaves to the root.
 
 
-Le même programme peut être ré-écrit en pensant différemment. Au lieu de
-dire à la machine ce qu'elle doit faire étape par étape, on peut plutôt lui
-dire ce que l'on veut. Cela revient à penser le programme en partant de la
-racine vers les feuilles.
+The same program can be written using the functional programming paradigm.
+Instead of telling the machine *what to do*, we can express *what we want*.
+Considering the program this way explores the tree from the root to the leaves.
 
-.. code-block:: fortran
+``` fortran
 
-  program calcule_t
+program compute_t
     implicit none
-    integer :: d1, d2, d3, d4 d5    ! Donnees d'input
-    integer :: u1, u2, v, w, t      ! Fonctions
-    call lecture(d1,d2,d3,d4,d5)
-    write(*,*), "t=", t( u(d1,d2), v( u(d3,d4), w(d5) ) )
-  end program
 
-Ici, les relations de dépendences entre les variables sont exprimées à
-travers l'appel de la fonction `t`, et le programmeur n'a plus besoin de spécifier une
-séquence particulière. Il ne connaît d'ailleurs pas *a priori* l'ordre dans
-lequel vont s'effectuer les appels des fonctions `w(d5)` et `u(d3,d4)`, mais il
-doit toujours avoir l'arbre en tête pour écrire le programme.
+    integer :: d1, d2, d3, d4 d5  ! Input data
+    integer :: u1, u2, v, w, t    ! Computed entities
+    
+    call read_data(d1,d2,d3,d4,d5)
+
+    write(*,*), "t=", t( u(d1,d2), v( u(d3,d4), w(d5) ) )
+
+end program
+```
+
+Now, the *needs/needed_by* relationships between the entities are expressed by
+calling function `t`. The programmer doesn't control any more the order in
+which the instructions will be executed : we don't known which one `u(d3,d4)`
+and `w(d5)` will be executed first. However, the global knowledge of the tree
+is still required to write this program.
+
+Programming with IRP
+--------------------
+
+In order to get rid of the *global knowledge* of the tree, we will transform it
+into *local knowledge*, which is much easier to handle. For each entity, we will
+only express which are the other needed entities:
+
+* t  -> u1, v
+* u1 -> d1, d2
+* v  -> u2, w
+* u2 -> d3, d4
+* w  -> d5
+
+We start by creating a *global* variable for each node of the tree.
+For convenience, we put all of them in a Fortran module `nodes`:
+
+``` fortran
+module nodes
+
+  integer :: u1
+  integer :: u2
+  integer :: v
+  integer :: w
+  integer :: t
+
+end module
+```
+
+Then, for each node we write a *builder*, which is a subroutine that builds
+a *valid* value (according to the equations given at the beginning of this
+section), assuming that all other nodes that are required have already
+been built.
+
+``` fortran
+
+subroutine build_t
+  use nodes
+  implicit none
+  t = u1 + v + 4
+end subroutine build_t
+
+subroutine build_w
+  use nodes
+  implicit none
+  w = d5+3
+end subroutine build_w
+   
+subroutine build_v
+  use nodes
+  implicit none
+  v = u2+w+2
+end subroutine build_v
+   
+subroutine build_u1
+  use nodes
+  implicit none
+  integer :: f_u
+  u1 = f_u(d1,d2)
+end subroutine build_u1
+   
+subroutine build_u2
+  use nodes
+  implicit none
+  u2 = f_u(d3,d4)
+end subroutine build_u2
+   
+integer function f_u(x,y)
+  use nodes
+  implicit none
+  integer, intent(in)  :: x,y
+  f_u = x+y+1
+end
+```
+
+
+
+
 
 Avec IRPF90, le programmeur n'a pas besoin de connaître l'arbre : il est automatiquement
 calculé. Ainsi, avec IRPF90 le programme serait tout simplement :
