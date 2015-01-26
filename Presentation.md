@@ -39,11 +39,15 @@ program calcule_t
     
 end program
 ```
-De cette façon, le programmeur dit à la machine ce qu'elle doit faire étape par
-étape : on parle de programmation impérative. Si les étapes ne sont pas données
-dans la bonne séquence, le programme est faux. Ainsi à chaque ligne, il faut connaître
-l'état de l'ensemble du programme, et donc les dépendence entre les variables.
-Dans cette approche, la pensée du programmeur va des feuilles de l'arbre vers la racine.
+
+This way of programming is imperative : the programmer tells
+the machine how its internal state will change by giving
+step-by-step instructions. If the instructions are not given 
+in the proper order, the program is wrong. Therefore, at each
+line the programmer has to be aware of the full state of the
+program, which results from the *needs/needed_by* relationships of the variables.
+Imperative programming is done by exploring the tree from the leaves to the root.
+
 
 Le même programme peut être ré-écrit en pensant différemment. Au lieu de
 dire à la machine ce qu'elle doit faire étape par étape, on peut plutôt lui
