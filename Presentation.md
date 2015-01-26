@@ -16,10 +16,7 @@ t(x,y) = x + y + 4
 
 This program can be represented with the following tree:
 
-.. figure:: tre![](tree.svg)
-   :width: 9cm
-
-   Figure 1: Arbre correspondant à la fonction *t( u(d1,d2), v( u(d3,d4), w(d5) ) )*
+![](tree.svg)
 
 L'écriture du programme en Fortran nécessiterait au programmeur d'avoir cet arbre en tête :
 
