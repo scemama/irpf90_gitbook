@@ -2,5 +2,5 @@
 
 * [README](README.md)
 * [Introduction](Introduction.md)
-* [Overview of IRPF90](Presentation.md)
+* [The Implicit Reference to Parameters method](Presentation.md)
 
