@@ -2,5 +2,5 @@
 
 * [README](README.md)
 * [Introduction](Introduction.md)
-* [The Implicit Reference to Parameters method](Presentation.md)
+* [The Implicit Reference to Parameters method](IRPMethod.md)
 
