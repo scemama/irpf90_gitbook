@@ -18,23 +18,27 @@ This program can be represented with the following tree:
 
 ![](tree.svg)
 
-L'écriture du programme en Fortran nécessiterait au programmeur d'avoir cet arbre en tête :
+Writing the program in Fortran would require the programmer to
+have this tree in mind:
 
-.. code-block:: fortran
-
-  program calcule_t
+``` Fortran
+program calcule_t
     implicit none
-    integer :: d1, d2, d3, d4 d5  ! Donnees d'input
-    integer :: u1, u2, v, w, t    ! Variables intermediaires
-    call lecture(d1,d2,d3,d4,d5)
-    call calcule_u(d1,d2,u1)
-    call calcule_u(d3,d4,u2)
-    call calcule_w(d5,w)
-    call calcule_v(u2,w,v)
-    call calcule_t(u1,v,t)
-    write(*,*), "t=", t
-  end program
 
+    integer :: d1, d2, d3, d4 d5  ! Input data
+    integer :: u1, u2, v, w, t    ! Computed entities
+    
+    call read_data(d1,d2,d3,d4,d5)
+    call compute_u(d1,d2,u1)
+    call compute_u(d3,d4,u2)
+    call compute_w(d5,w)
+    call compute_v(u2,w,v)
+    call compute_t(u1,v,t)
+    
+    write(*,*), "t=", t
+    
+end program
+```
 De cette façon, le programmeur dit à la machine ce qu'elle doit faire étape par
 étape : on parle de programmation impérative. Si les étapes ne sont pas données
 dans la bonne séquence, le programme est faux. Ainsi à chaque ligne, il faut connaître
