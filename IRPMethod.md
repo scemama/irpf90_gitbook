@@ -23,7 +23,7 @@ This program can be represented with the following tree:
 Writing the program in Fortran would require the programmer to have this tree
 in mind:
 
-``` Fortran
+```fortran
 program compute_t
     implicit none
 
@@ -57,7 +57,7 @@ The same program can be written using the functional programming paradigm.
 Instead of telling the machine *what to do*, we can express *what we want*.
 Considering the program this way explores the tree from the root to the leaves.
 
-``` fortran
+```fortran
 
 program compute_t
     implicit none
@@ -92,54 +92,8 @@ It appears now that the arguments of the functions are not *variables* but
 *parameters*. In that case, we can put the parameters inside the functions,
 as they will always be the same.
 
-``` fortran
-program compute_t
-    implicit none
-    integer, external :: t  
-    write(*,*), "t=", t()
-end program
-
-integer function t()
-    implicit none
-    integer, external :: u1, v
-    t = u1() + v() + 4
-end
-
-integer function w()
-    implicit none
-    integer :: d1,d2,d3,d4,d5
-    call read_data(d1,d2,d3,d4,d5)
-    w = d5+3
-end
-
-integer function v()
-    implicit none
-    integer, external :: u2, w
-    v = u2() + w() + 2
-end
-
-integer function u1()
-    implicit none
-    integer :: d1,d2,d3,d4,d5
-    integer, external :: f_u
-    call read_data(d1,d2,d3,d4,d5)
-    u1 = f_u(d1,d2)
-end
-
-integer function u2()
-    implicit none
-    integer :: d1,d2,d3,d4,d5
-    integer, external :: f_u
-    call read_data(d1,d2,d3,d4,d5)
-    u2 = f_u(d3,d4)
-end
-
-integer function f_u(x,y)
-    implicit none
-    integer, intent(in)  :: x,y
-    f_u = x+y+1
-end
-
+```fortran
+{{ ./Test1/test1.f90 }}
 ```
 
 Now, the program automatically builds the tree and explores it. The programmer
@@ -156,7 +110,7 @@ is well known as *memo functions*.
 We start by creating a *global* variable for each node of the tree.
 For convenience, we put all of them in a Fortran module `nodes`:
 
-``` fortran
+```fortran
 module nodes
 
   integer :: u1
@@ -173,7 +127,7 @@ a *valid* value (according to the equations given at the beginning of this
 section), assuming that all other nodes that are required have already
 been built.
 
-``` fortran
+```fortran
 
 subroutine build_t
   use nodes
