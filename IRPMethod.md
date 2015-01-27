@@ -308,7 +308,7 @@ subroutine provide_d
 end
 ```
 
-and the main program is simply
+And the main program is just
 
 ```fortran
 program test
@@ -322,7 +322,7 @@ end program
 The rules are simple:
 
 1. Each entity has only one builder and only one provider
-2. The arguments of the builer are the values of the needed entities. 
+2. The arguments of the builder are the values of the needed entities. 
 3. Calling a provider always guarantees that the entity of interest is *valid* after the provider has been called
 
 Applying rigorously these rules makes the development of large codes as easy
