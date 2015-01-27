@@ -64,7 +64,6 @@ Instead of telling the machine *what to do*, we can express *what we want*.
 Considering the program this way explores the tree from the root to the leaves.
 
 ```fortran
-
 program compute_t
     implicit none
 
