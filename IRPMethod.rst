@@ -6,42 +6,43 @@ One can represent the program as a tree whose root is the output and whose
 leaves are the data. The nodes are the intermediate variables, and the vertices
 represent the *needs/needed_by* relationships.
 
-Let us consider a program which computes `t( u(d1,d2), v(u(d3,d4), w(d5)) )`
+Let us consider a program which computes ``t( u(d1,d2), v(u(d3,d4), w(d5)) )``
 with
 
-```
-u(x)   = x + y + 1
-v(x)   = x + y + 2
-w(x)   = x + 3
-t(x,y) = x + y + 4
-```
+.. code-block:: text
+
+    u(x)   = x + y + 1
+    v(x)   = x + y + 2
+    w(x)   = x + 3
+    t(x,y) = x + y + 4
+
 
 This program can be represented with the following tree:
 
-![](tree.svg)
+.. image:: tree.svg
 
 Writing the program in Fortran would require the programmer to have this tree
 in mind:
 
-``` Fortran
-program compute_t
-    implicit none
+.. code-block:: fortran
 
-    integer :: d1, d2, d3, d4 d5  ! Input data
-    integer :: u1, u2, v, w, t    ! Computed entities
-    
-    call read_data(d1,d2,d3,d4,d5)
-
-    call compute_u(d1,d2,u1)
-    call compute_u(d3,d4,u2)
-    call compute_w(d5,w)
-    call compute_v(u2,w,v)
-    call compute_t(u1,v,t)
-    
-    write(*,*), "t=", t
-    
-end program
-```
+  program compute_t
+      implicit none
+  
+      integer :: d1, d2, d3, d4 d5  ! Input data
+      integer :: u1, u2, v, w, t    ! Computed entities
+      
+      call read_data(d1,d2,d3,d4,d5)
+  
+      call compute_u(d1,d2,u1)
+      call compute_u(d3,d4,u2)
+      call compute_w(d5,w)
+      call compute_v(u2,w,v)
+      call compute_t(u1,v,t)
+      
+      write(*,*), "t=", t
+      
+  end program
 
 This way of programming is imperative, which is the natural way to write
 Fortran : the programmer tells the machine how its internal state will change
@@ -57,20 +58,20 @@ The same program can be written using the functional programming paradigm.
 Instead of telling the machine *what to do*, we can express *what we want*.
 Considering the program this way explores the tree from the root to the leaves.
 
-``` fortran
+.. code-block:: fortran
 
-program compute_t
-    implicit none
+  program compute_t
+      implicit none
+  
+      integer :: d1, d2, d3, d4 d5        ! Input data
+      integer, external :: u, u, v, w, t  ! Functions
+      
+      call read_data(d1,d2,d3,d4,d5)
+  
+      write(*,*), "t=", t( u(d1,d2), v( u(d3,d4), w(d5) ) )
+  
+  end program
 
-    integer :: d1, d2, d3, d4 d5        ! Input data
-    integer, external :: u, u, v, w, t  ! Functions
-    
-    call read_data(d1,d2,d3,d4,d5)
-
-    write(*,*), "t=", t( u(d1,d2), v( u(d3,d4), w(d5) ) )
-
-end program
-```
 
 Now, the *needs/needed_by* relationships between the entities are expressed by
 calling function `t`. The programmer doesn't control any more the order in
@@ -92,56 +93,56 @@ It appears now that the arguments of the functions are not *variables* but
 *parameters*. In that case, we can put the parameters inside the functions,
 as they will always be the same.
 
-``` fortran
-program compute_t
-    implicit none
-    integer, external :: t  
-    write(*,*), "t=", t()
-end program
+.. code-block:: fortran
 
-integer function t()
-    implicit none
-    integer, external :: u1, v
-    t = u1() + v() + 4
-end
-
-integer function w()
-    implicit none
-    integer :: d1,d2,d3,d4,d5
-    call read_data(d1,d2,d3,d4,d5)
-    w = d5+3
-end
-
-integer function v()
-    implicit none
-    integer, external :: u2, w
-    v = u2() + w() + 2
-end
-
-integer function u1()
-    implicit none
-    integer :: d1,d2,d3,d4,d5
-    integer, external :: f_u
-    call read_data(d1,d2,d3,d4,d5)
-    u1 = f_u(d1,d2)
-end
-
-integer function u2()
-    implicit none
-    integer :: d1,d2,d3,d4,d5
-    integer, external :: f_u
-    call read_data(d1,d2,d3,d4,d5)
-    u2 = f_u(d3,d4)
-end
-
-integer function f_u(x,y)
-    implicit none
-    integer, intent(in)  :: x,y
-    f_u = x+y+1
-end
-
-```
-
+  program compute_t
+      implicit none
+      integer, external :: t  
+      write(*,*), "t=", t()
+  end program
+  
+  integer function t()
+      implicit none
+      integer, external :: u1, v
+      t = u1() + v() + 4
+  end
+  
+  integer function w()
+      implicit none
+      integer :: d1,d2,d3,d4,d5
+      call read_data(d1,d2,d3,d4,d5)
+      w = d5+3
+  end
+  
+  integer function v()
+      implicit none
+      integer, external :: u2, w
+      v = u2() + w() + 2
+  end
+  
+  integer function u1()
+      implicit none
+      integer :: d1,d2,d3,d4,d5
+      integer, external :: f_u
+      call read_data(d1,d2,d3,d4,d5)
+      u1 = f_u(d1,d2)
+  end
+  
+  integer function u2()
+      implicit none
+      integer :: d1,d2,d3,d4,d5
+      integer, external :: f_u
+      call read_data(d1,d2,d3,d4,d5)
+      u2 = f_u(d3,d4)
+  end
+  
+  integer function f_u(x,y)
+      implicit none
+      integer, intent(in)  :: x,y
+      f_u = x+y+1
+  end
+  
+  
 Now, the program automatically builds the tree and explores it. The programmer
 doesn't have to handle this any more.
 However, there is a major drawback: here, the data is read three times because
@@ -156,63 +157,63 @@ is well known as *memo functions*.
 We start by creating a *global* variable for each node of the tree.
 For convenience, we put all of them in a Fortran module `nodes`:
 
-``` fortran
-module nodes
+.. code-block:: fortran
 
-  integer :: u1
-  integer :: u2
-  integer :: v
-  integer :: w
-  integer :: t
-
-end module
-```
+  module nodes
+  
+    integer :: u1
+    integer :: u2
+    integer :: v
+    integer :: w
+    integer :: t
+  
+  end module
 
 Then, for each node we write a *builder*, which is a subroutine that builds
 a *valid* value (according to the equations given at the beginning of this
 section), assuming that all other nodes that are required have already
 been built.
 
-``` fortran
+.. code-block:: fortran
 
-subroutine build_t
-  use nodes
-  implicit none
-  t = u1 + v + 4
-end subroutine build_t
+  subroutine build_t
+    use nodes
+    implicit none
+    t = u1 + v + 4
+  end subroutine build_t
+  
+  subroutine build_w
+    use nodes
+    implicit none
+    w = d5+3
+  end subroutine build_w
+     
+  subroutine build_v
+    use nodes
+    implicit none
+    v = u2+w+2
+  end subroutine build_v
+     
+  subroutine build_u1
+    use nodes
+    implicit none
+    integer :: f_u
+    u1 = f_u(d1,d2)
+  end subroutine build_u1
+     
+  subroutine build_u2
+    use nodes
+    implicit none
+    u2 = f_u(d3,d4)
+  end subroutine build_u2
+     
+  integer function f_u(x,y)
+    use nodes
+    implicit none
+    integer, intent(in)  :: x,y
+    f_u = x+y+1
+  end
 
-subroutine build_w
-  use nodes
-  implicit none
-  w = d5+3
-end subroutine build_w
-   
-subroutine build_v
-  use nodes
-  implicit none
-  v = u2+w+2
-end subroutine build_v
-   
-subroutine build_u1
-  use nodes
-  implicit none
-  integer :: f_u
-  u1 = f_u(d1,d2)
-end subroutine build_u1
-   
-subroutine build_u2
-  use nodes
-  implicit none
-  u2 = f_u(d3,d4)
-end subroutine build_u2
-   
-integer function f_u(x,y)
-  use nodes
-  implicit none
-  integer, intent(in)  :: x,y
-  f_u = x+y+1
-end
-```
 
 
 
