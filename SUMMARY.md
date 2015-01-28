@@ -3,6 +3,12 @@
 * [README](README.md)
 * [Introduction](Introduction.md)
 * [The Implicit Reference to Parameters method](IRPMethod.md)
-* [Presentation of IRPF90](IRPF90.md)
+* [Presentation of IRPF90](IRPF90/IRPF90.md)
+  * [Basics of IRPF90](IRPF90/Basics.md)
+  * [Automatic documentation](IRPF90/Documentation.md)
+  * [Helping features](IRPF90/Help.md)
+  * [Makefile configuration](IRPF90/Makefile.md)
+  * [HPC-oriented functionalities](IRPF90/HPC.md)
+  * [Index of command-line options](IRPF90/CLI.md)
 * [Examples](Examples.md)
 

@@ -1,12 +1,3 @@
-Presentation of IRPF90
-======================
-
-As we have seen in the previous section, the IRP method is very powerful, but
-it requires a lot of discipline. IRPF90 is a tool that will write all the
-boilerplate IRP code for you, keeping your source code clear. It will also
-write Makefiles, documentation man pages, introduce compiler directives for
-code optimization, etc...
-
 Basics of IRPF90
 ----------------
 
@@ -146,18 +137,4 @@ gfortran -ffree-line-length-none -I IRPF90_temp/  -O2 -c IRPF90_temp/irp_touches
 gfortran -ffree-line-length-none -I IRPF90_temp/  -o irp_example1 IRPF90_temp/irp_example1.irp.o IRPF90_temp/irp_example1.irp.module.o IRPF90_temp/irp_stack.irp.o  IRPF90_temp/uvwt.irp.o IRPF90_temp/uvwt.irp.module.o IRPF90_temp/input.irp.o IRPF90_temp/input.irp.module.o  IRPF90_temp/irp_touches.irp.o  
 ```
 
-The produced Makefile
----------------------
-
-Automatic documentation
------------------------
-
-Debugging features
-------------------
-
-IRPF90 for HPC
---------------
-
-Command-line options
---------------------
 
