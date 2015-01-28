@@ -55,8 +55,8 @@ by giving step-by-step instructions.
 If the instructions are not given in the proper order, the program is wrong.
 Therefore, at each line the programmer has to be aware of the full state of the
 program, which results from the *needs/needed_by* relationships of the
-variables.  Imperative programming is done by exploring the tree from the
-leaves to the root.
+variables. Imperative programming explores the tree from the leaves to the
+root.
 
 
 The same program can be written using the functional programming paradigm.
@@ -78,7 +78,7 @@ end program
 ```
 
 Now, the *needs/needed_by* relationships between the entities are expressed by
-calling function `t`. The programmer doesn't control any more the order in
+calling function `t`. The programmer doesn't handle any more the order in
 which the instructions will be executed : we don't known which one `u(d3,d4)`
 and `w(d5)` will be executed first. However, the global knowledge of the tree
 is still required to write this program.
@@ -211,7 +211,7 @@ end
 ```
 
 Then, we write a *provider* for each entity. A provider is a subroutine with
-no input arguments whose role is to return a valid value of an entity.
+no input arguments whose role is to prepare a valid value of an entity.
 It calls the providers of the needed entities, calls the builder of the desired
 entity, saves the computed value in a cache and then marks the quantity as
 built. The next calls to the provider will return the cached value.
