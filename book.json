@@ -1,6 +1,6 @@
 {
-    "plugins": ["mathjax"],
-    "pluginsConfig": {}
+    "plugins": [],
+    "pluginsConfig": {},
     // Links in template (null: default, false: remove, string: new value)
     "links": {
         // Custom links at top of sidebar
@@ -15,7 +15,7 @@
             "twitter": null,
             "weibo": null,
             "all": null
-        }
+        },
 
   // Options for PDF generation
     "pdf": {
@@ -28,8 +28,8 @@
         // Margin (in pts)
         // Note: 72 pts equals 1 inch
         "margin": {
-            "right": 62,
-            "left": 62,
+            "right": 72,
+            "left": 72,
             "top": 36,
             "bottom": 36
         },

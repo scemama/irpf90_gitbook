@@ -1,5 +1,5 @@
-Basics of IRPF90
-----------------
+IRPF90 Basics
+-------------
 
 Let us rewrite the same code as in the previous section, but in the IRPF90
 framework.
