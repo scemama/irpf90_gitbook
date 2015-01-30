@@ -1,15 +1,3 @@
-* ctags
-* vim plugin
-* irpf90_indent.py
-* irp_here
-* Templates
-* Embedded shell scripts
-* Conditional compilation
-* debug
-* memory management
-* preprocess
-* touch
-* unused
 
 Helping features
 ================
@@ -28,7 +16,7 @@ BEGIN_PROVIDER [ integer, u2 ]
 END_PROVIDER
 ```
 
-in this particular example, if ``u2 < u3`` nothing happens. If ``u2 >= u3``, then the program
+In this particular example, if ``u2 < u3`` nothing happens. If ``u2 >= u3``, then the program
 fails:
 
 ```
@@ -51,3 +39,75 @@ STOP 1
 Assertions are activated by using ``irpf90 -a``. If the ``-a`` option is not present, all the
 assertions are discarded.
 
+Templates
+---------
+
+Templates is a very useful feature of many languages. IRPF90 provides a simple way
+to write templates to generate similar providers and functions.
+The template is defined in the ``BEGIN_TEMPLATE ... END_TEMPLATE`` block.
+The first section of the block contains the template code, in which *template variables*
+are used prefixed with a dollar sign. 
+Then the ``SUBST`` keyword defines the template variables to substitute, and
+multiple *substitution definition* lines are given. The substitution definitions
+are separated by two semi-colons (``;;``), and within a substitution definition the variable
+substitutions are separated by one semi-colon (``;``).
+
+
+```fortran
+BEGIN_TEMPLATE
+
+  BEGIN_PROVIDER [ $type , $name ]
+   call find_in_input('$name', $name)
+  END_PROVIDER 
+
+  logical function $name_is_zero()
+    $name_is_zero = ($name == 0)
+  end function
+
+SUBST [ type, name ]
+
+  integer    ;   size_tab1 ;;
+  integer    ;   size_tab2 ;;
+  real       ;   distance  ;;
+  real       ;   x         ;;
+  real       ;   y         ;;
+  real       ;   z         ;;
+
+END_TEMPLATE
+
+```
+
+In this example, ``type`` and ``name`` are the template variables, referenced
+as ``$type`` and ``$name`` in the first block. Six providers and functions will
+be generated : 
+
+* replacing ``$type`` with ``integer`` and ``name`` with ``size_tab1``
+* replacing ``$type`` with ``integer`` and ``name`` with ``size_tab2``
+* replacing ``$type`` with ``real`` and ``name`` with ``distance``
+* replacing ``$type`` with ``real`` and ``name`` with ``x``
+* replacing ``$type`` with ``real`` and ``name`` with ``y``
+* replacing ``$type`` with ``real`` and ``name`` with ``z``
+
+
+Embedded shell scripts
+----------------------
+
+Integration in Vim
+------------------
+
+* ctags
+* vim plugin
+* irpf90_indent.py
+
+Conditional compilation
+-----------------------
+
+Debugging
+---------
+
+* irp_here
+* debug
+* memory management
+* preprocess
+* touch
+* unused
