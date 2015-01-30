@@ -39,6 +39,8 @@ This file contains usual Fortran statements, as well as new keywords. In Fortran
 there are subroutines and functions, and IRPF90 introduces *Providers*. If an
 entity is declared with a ``BEGIN_PROVIDER ... END_PROVIDER`` block, then it
 is an IRP entity and it will behave as a global variable in the whole program.
+All the provided entities are not supposed to be modified outside of their
+providers.
 The main point is that the provider will always be called automatically before
 the variable is used. The programmer doesn't know when and where the provider
 will be called.
