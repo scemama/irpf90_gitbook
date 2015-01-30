@@ -98,13 +98,23 @@ LIB=
 
 include irpf90.make
 
-irpf90.make: $(filter-out IRPF90_temp/%, $(wildcard */*.irp.f)) $(wildcard *.irp.f) $(wildcard *.inc.f) Makefile
+irpf90.make: $(filter-out IRPF90_temp/%, $(wildcard */*.irp.f)) \
+             $(wildcard *.irp.f) $(wildcard *.inc.f) Makefile
         $(IRPF90)
 ```
 
 To build the test program, simply run ``make``. The ``Makefile`` includes the
 ``irpf90.make`` file which does not exist, but there is a rule to create it by
-calling IRPF90. Once IRPF90 has created the ``irpf90.make`` file, it can be
+calling IRPF90.
+IRPF90 analyzes the code present in all the ``*.irp.f`` files of the current
+directory.  The list of IRP entities is created in a first pass, then a second
+pass analyzes the dependencies between the entities. From all this information,
+it creates the Fortran code that will call the providers of each entity before
+it is used.
+As the dependencies between the entities are known the ``irpf90.make`` file,
+containing all the dependencies between the files, can be written.
+
+Once IRPF90 has created the ``irpf90.make`` file, it can be
 included and the Fortran files can be compiled. As the ``irpf90.make`` file
 depends on all the ``*.irp.f`` files of the current directory, each
 modification or creation of an ``*.irp.f`` file will force IRPF90 to run before

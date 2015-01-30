@@ -5,7 +5,6 @@
 * Templates
 * Embedded shell scripts
 * Conditional compilation
-* assert
 * debug
 * memory management
 * preprocess
