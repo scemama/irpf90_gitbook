@@ -114,12 +114,12 @@ it is used.
 As the dependencies between the entities are known the ``irpf90.make`` file,
 containing all the dependencies between the files, can be written.
 
-Once IRPF90 has created the ``irpf90.make`` file, it can be
-included and the Fortran files can be compiled. As the ``irpf90.make`` file
-depends on all the ``*.irp.f`` files of the current directory, each
-modification or creation of an ``*.irp.f`` file will force IRPF90 to run before
-compiling. To summarize, you almost never need to write anything in the
-Makefiles. You just need to write ``*.irp.f`` files and run ``make``.
+Once IRPF90 has created the ``irpf90.make`` file, it can be included and the
+Fortran files can be compiled. As the ``irpf90.make`` file depends on all the
+``*.irp.f`` files of the current directory, each modification or creation of an
+``*.irp.f`` file will force IRPF90 to run before compiling. To summarize, you
+almost never need to write anything in the Makefiles. You just need to write
+``*.irp.f`` files and run ``make``.
 
 ```shell
 Makefile:9: irpf90.make: No such file or directory
@@ -149,4 +149,42 @@ gfortran -ffree-line-length-none -I IRPF90_temp/  -O2 -c IRPF90_temp/irp_touches
 gfortran -ffree-line-length-none -I IRPF90_temp/  -o irp_example1 IRPF90_temp/irp_example1.irp.o IRPF90_temp/irp_example1.irp.module.o IRPF90_temp/irp_stack.irp.o  IRPF90_temp/uvwt.irp.o IRPF90_temp/uvwt.irp.module.o IRPF90_temp/input.irp.o IRPF90_temp/input.irp.module.o  IRPF90_temp/irp_touches.irp.o  
 ```
 
+### Array variables
+
+An array is considered *valid* when all of its values are valid. The dimensions
+of an array entity can be IRP entities, constants or intervals.
+
+```fortran
+BEGIN_PROVIDER [ integer, fact_max ]
+  fact_max = 10
+END_PROVIDER
+
+BEGIN_PROVIDER [ double precision, fact, (0:fact_max) ]
+  implicit none
+  integer :: i
+  fact(0) = 1.d0
+  do i=1,fact_max
+    fact(i) = fact(i-1)*dble(i)
+  end do
+END_PROVIDER
+```
+
+In this example, as the array ``fact`` depends on its dimensioning variable
+``fact_max``, ``fact_max`` is provided first. Then, the ``fact`` array is
+allocated with the required dimensions, and then the code inside the provider
+is executed. Note that if the ``fact`` array is not used in the program, it
+will never be allocated.
+
+It is possible to free memory by using the ``FREE`` keyword.
+
+```fortran
+BEGIN_PROVIDER [ double precision, table2, (size(table1,1)) ]
+  implicit none
+  table2(:) = 2.d0 * table1(:)
+  FREE table1
+END_PROVIDER
+```
+
+When ``table1`` is freed, the entity ``table1`` is marked as *non-valid*, such that
+if it is needed again, it will be reallocated and rebuilt.
 
