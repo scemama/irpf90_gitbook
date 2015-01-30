@@ -9,7 +9,7 @@ ideas, but the reader is encouraged to read the original paper.
 
 A scientific program (or sub-program) is a complicated function of its data.
 One can represent the program as a tree whose root is the output and whose
-leaves are the data. The nodes are the intermediate variables, and the vertices
+leaves are the data. The nodes are the intermediate variables, and the edges
 represent the *needs/needed_by* relationships.
 
 Let us consider a program which computes `t( u(d1,d2), v(u(d3,d4), w(d5)) )`
