@@ -1,4 +1,38 @@
 {
-    "plugins": [],
+    "plugins": ["mathjax"],
     "pluginsConfig": {}
+    // Links in template (null: default, false: remove, string: new value)
+    "links": {
+        // Custom links at top of sidebar
+        "sidebar": {
+            "IRPF90 web site": "http://irpf90.ups-tlse.fr"
+        },
+
+        // Sharing links
+        "sharing": {
+            "google": null,
+            "facebook": null,
+            "twitter": null,
+            "weibo": null,
+            "all": null
+        }
+
+  // Options for PDF generation
+    "pdf": {
+        "pageNumbers": true,
+        "fontSize": 14,
+        // Paper size for the pdf
+        // Choices are [u’a0’, u’a1’, u’a2’, u’a3’, u’a4’, u’a5’, u’a6’, u’b0’, u’b1’, u’b2’, u’b3’, u’b4’, u’b5’, u’b6’, u’legal’, u’letter’]
+        "paperSize": "a4",
+
+        // Margin (in pts)
+        // Note: 72 pts equals 1 inch
+        "margin": {
+            "right": 62,
+            "left": 62,
+            "top": 36,
+            "bottom": 36
+        },
+        "headerTemplate": null,
+        "footerTemplate": null
 }
