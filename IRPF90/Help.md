@@ -108,8 +108,21 @@ standard Fortran file to color the additional keywords of IRPF90.
 The ``tags`` file is similar to the file created with the ``ctags`` utility
 when programming in C. The presence of this file allows ``vim`` to jump
 automatically on the definitions of providers, functions and subroutines.
+For instance, inside ``vim``, ``:tag u1`` jumps to the provider of ``u1``.
+Another option is to place your cursor on an IRP entity somewhere where it
+is used and hit ``<CTRL>-]`` to jump on its definition. To come back where
+you were, hit ``<CTRL>-T``.
 
-* irpf90_indent.py
+The command ``irpf90_indent`` auto_indents the code given in standard input.
+
+<!---
+TODO
+Adding this to your ``.vimrc`` file:
+
+  set equalprg=~/irpf90/bin/irpf90_indent
+
+ irpf90_indent.py
+--->
 
 Conditional compilation
 -----------------------
