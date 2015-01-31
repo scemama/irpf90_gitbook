@@ -95,8 +95,20 @@ Embedded shell scripts
 Integration in Vim
 ------------------
 
-* ctags
-* vim plugin
+
+When running ``irpf90``, two files are created for the interaction with
+``vim``:
+
+* the ``$HOME/.vim/syntax/irpf90.vim`` file
+* a ``tags`` file in the current directory
+
+The first file is a syntax file for syntax highlighting. It extends the 
+standard Fortran file to color the additional keywords of IRPF90.
+
+The ``tags`` file is similar to the file created with the ``ctags`` utility
+when programming in C. The presence of this file allows ``vim`` to jump
+automatically on the definitions of providers, functions and subroutines.
+
 * irpf90_indent.py
 
 Conditional compilation
