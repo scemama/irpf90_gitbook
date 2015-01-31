@@ -6,7 +6,7 @@ framework.
 
 First, we create a file named ``uvwt.irp.f``:
 
-```fortran
+``` fortran
 BEGIN_PROVIDER [ integer, t ]
   t = u1+v+4
 END_PROVIDER
@@ -49,7 +49,7 @@ Let us now introduce a provider for coupled data. Here, the input data will
 be read from the standard input in a given order, so it is convenient to
 provide them all at once in file ``input.irp.f``:
 
-```fortran
+``` fortran
  BEGIN_PROVIDER [ integer, d1 ]
 &BEGIN_PROVIDER [ integer, d2 ]
 &BEGIN_PROVIDER [ integer, d3 ]
@@ -64,7 +64,7 @@ END_PROVIDER
 
 Now, we can write the main function in the ``irp_example1.irp.f`` file:
 
-```fortran
+``` fortran
 program irp_example1
   implicit none
   print *, 't = ', t
@@ -73,7 +73,7 @@ end
 
 To compile the program, we will have to set up the IRPF90 environment:
 
-```shell
+``` bash
 $ ls
 input.irp.f  irp_example1.irp.f  uvwt.irp.f
 
@@ -121,7 +121,8 @@ Fortran files can be compiled. As the ``irpf90.make`` file depends on all the
 almost never need to write anything in the Makefiles. You just need to write
 ``*.irp.f`` files and run ``make``.
 
-```shell
+``` 
+$ make
 Makefile:9: irpf90.make: No such file or directory
 irpf90  
 IRPF90_temp/irp_example1.irp.module.F90
@@ -154,7 +155,7 @@ gfortran -ffree-line-length-none -I IRPF90_temp/  -o irp_example1 IRPF90_temp/ir
 An array is considered *valid* when all of its values are valid. The dimensions
 of an array entity can be IRP entities, constants or intervals.
 
-```fortran
+``` fortran
 BEGIN_PROVIDER [ integer, fact_max ]
   fact_max = 10
 END_PROVIDER
@@ -177,7 +178,7 @@ will never be allocated.
 
 It is possible to free memory by using the ``FREE`` keyword.
 
-```fortran
+``` fortran
 BEGIN_PROVIDER [ double precision, table2, (size(table1,1)) ]
   implicit none
   table2(:) = 2.d0 * table1(:)
@@ -187,4 +188,5 @@ END_PROVIDER
 
 When ``table1`` is freed, the entity ``table1`` is marked as *non-valid*, such that
 if it is needed again, it will be reallocated and rebuilt.
+
 
