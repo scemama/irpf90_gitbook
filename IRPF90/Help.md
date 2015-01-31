@@ -104,6 +104,11 @@ When running ``irpf90``, two files are created for the interaction with
 
 The first file is a syntax file for syntax highlighting. It extends the 
 standard Fortran file to color the additional keywords of IRPF90.
+It also adds two features : hitting ``K`` when the cursor is on the
+name of an IRP entity displays its man page, and hitting ``=`` on
+a group lines selected with ``<Shift>-V`` auto-indents the code.
+However, auto-indentation is to be used outside of ``BEGIN_SHELL ... END_SHELL``
+blocks, especially for embedded Python scripts.
 
 The ``tags`` file is similar to the file created with the ``ctags`` utility
 when programming in C. The presence of this file allows ``vim`` to jump
@@ -113,16 +118,6 @@ Another option is to place your cursor on an IRP entity somewhere where it
 is used and hit ``<CTRL>-]`` to jump on its definition. To come back where
 you were, hit ``<CTRL>-T``.
 
-The command ``irpf90_indent`` auto_indents the code given in standard input.
-
-<!---
-TODO
-Adding this to your ``.vimrc`` file:
-
-  set equalprg=~/irpf90/bin/irpf90_indent
-
- irpf90_indent.py
---->
 
 Conditional compilation
 -----------------------
