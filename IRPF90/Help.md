@@ -92,6 +92,8 @@ be generated :
 Embedded shell scripts
 ----------------------
 
+TODO
+
 Integration in Vim
 ------------------
 
@@ -121,6 +123,12 @@ you were, hit ``<CTRL>-T``.
 
 Conditional compilation
 -----------------------
+
+In IRPF90, the C preprocessor can't really be used, as the produced Fortran
+files may not have everything in the same order as the ``*.irp.f`` files.
+Instead, IRPF90 provides the ``IRP_IF ... IRP_ELSE ... IRP_ENDIF`` keywords to
+enable [conditional
+compilation](http://en.wikipedia.org/wiki/Conditional_compilation).
 
 Debugging
 ---------
