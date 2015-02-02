@@ -130,6 +130,24 @@ Instead, IRPF90 provides the ``IRP_IF ... IRP_ELSE ... IRP_ENDIF`` keywords to
 enable [conditional
 compilation](http://en.wikipedia.org/wiki/Conditional_compilation).
 
+``` fortran
+IRP_IF new_feature
+
+  print *, 'New feature'
+  call new_feature()
+
+IRP_ELSE
+
+  print *, 'Old feature'
+  call old_feature()
+
+IRP_ENDIF
+```
+
+To generate the program with the old feature, just run ``irpf90`` as usual.
+If you want to activate the new feature instead, use ``irpf90 -Dnew_feature``.
+Multiple ``-D`` options can be given in the command line
+
 Debugging
 ---------
 
