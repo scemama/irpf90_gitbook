@@ -121,9 +121,9 @@ To generate the program with the old feature, just run ``irpf90`` as usual.
 If you want to activate the new feature instead, use ``irpf90 -Dnew_feature``.
 Multiple ``-D`` options can be given in the command line
 
+
 Integration in Vim
 ------------------
-
 
 When running ``irpf90``, two files are created for the interaction with
 ``vim``:

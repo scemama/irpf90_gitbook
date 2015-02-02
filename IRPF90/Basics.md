@@ -150,7 +150,7 @@ gfortran -ffree-line-length-none -I IRPF90_temp/  -O2 -c IRPF90_temp/irp_touches
 gfortran -ffree-line-length-none -I IRPF90_temp/  -o irp_example1 IRPF90_temp/irp_example1.irp.o IRPF90_temp/irp_example1.irp.module.o IRPF90_temp/irp_stack.irp.o  IRPF90_temp/uvwt.irp.o IRPF90_temp/uvwt.irp.module.o IRPF90_temp/input.irp.o IRPF90_temp/input.irp.module.o  IRPF90_temp/irp_touches.irp.o  
 ```
 
-### Array variables
+### Array entities
 
 An array is considered *valid* when all of its values are valid. The dimensions
 of an array entity can be IRP entities, constants or intervals.
@@ -189,4 +189,21 @@ END_PROVIDER
 When ``table1`` is freed, the entity ``table1`` is marked as *non-valid*, such that
 if it is needed again, it will be reallocated and rebuilt.
 
+
+### Forcing to provide entities
+
+The ``PROVIDE`` keyword forces to provide an entity, even if it is not 
+needed. 
+
+In this example,
+
+``` fortran
+subroutine s()
+  implicit none
+  PROVIDE u v
+end
+```
+
+``u`` and ``v`` will be provided before entering in the scope of subroutine
+``s``.
 

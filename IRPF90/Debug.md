@@ -163,6 +163,9 @@ array.
 Debugging an embedded script
 ----------------------------
 
+TODO
+
+
 Debugging ``TOUCH`` statements
 ------------------------------
 

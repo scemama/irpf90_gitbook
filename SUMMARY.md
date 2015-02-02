@@ -11,5 +11,6 @@
   * [HPC-oriented functionalities](IRPF90/HPC.md)
   * [Makefile configuration](IRPF90/Makefile.md)
   * [Index of command-line options](IRPF90/CLI.md)
-* [Examples](Examples.md)
+* [Examples](Examples/Examples.md)
+  * [CoArray Fortran](Examples/caf.md)
 
