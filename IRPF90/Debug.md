@@ -139,6 +139,27 @@ messages:
 Tracing memory allocations
 --------------------------
 
+When the memory used by a program becomes too large, one would like to
+find the IRP entities that may be responsible. The ``-m`` option will
+display a message in the standard output when an array for an IRP entity is
+allocated or deallocated (using the ``FREE`` keyword).
+
+Here is a real-world example (taken from the Quantum package IRPF90 code):
+
+```
+          10 Allocating ci_electronic_energy(N_states_diag)
+          10 Allocating ci_eigenvectors(N_det,N_states_diag)
+          10 Allocating ci_eigenvectors_s2(N_states_diag)
+      128260 Allocating psi_det(N_int,2,psi_det_size)
+...
+ Deallocating ci_eigenvectors
+       30600 Allocating ci_eigenvectors(N_det,N_states_diag)
+        6120 Allocating det_connections(N_con_int,N_det)
+```
+
+The integer at the beginning of the line is the number of elements in the
+array.
+
 Debugging an embedded script
 ----------------------------
 
