@@ -166,7 +166,28 @@ Debugging an embedded script
 Debugging ``TOUCH`` statements
 ------------------------------
 
-Printing unused providers
--------------------------
+``TOUCH`` statements are particularly dangerous because they violate
+the principle that one IRP entity can only be built by its builder, which
+can only be called by its provider. To see what will be invalidated by a
+``TOUCH`` statement can be useful to understand the consequences of a
+dangerous modification. The ``-t`` option displays which IRP entities will
+be invalidated :
+
+```
+$ irpf90 -t psi_coef
+Touching psi_coef invalidates the following entities:
+- ci_electronic_energy
+- ci_energy
+- coef_hf_selector
+- exc_degree_per_selectors
+- n_det_generators
+- n_det_selectors
+- one_body_dm_mo
+- psi_average_norm_contrib
+- psi_det_sorted
+- psi_generators
+- psi_selectors
+- s2_values
+```
 
 
