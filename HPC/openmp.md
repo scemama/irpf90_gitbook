@@ -1,5 +1,5 @@
 OpenMP
-======
+------
 
 OpenMP is straightforward to use with IRPF90 for simple loops. Trouble may
 arrive when entities are provided in OpenMP blocks such that two threads may be

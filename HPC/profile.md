@@ -1,5 +1,5 @@
 Profiling
-=========
+---------
 
 IRPF90 includes a profiler that will measure the number of CPU cycles
 spent in all the providers. At the end of the run, it will display for

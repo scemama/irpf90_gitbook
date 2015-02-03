@@ -1,5 +1,5 @@
 Codelet generation
-==================
+------------------
 
 When optimizing for performance, it is common to write a simple
 codelet that will just benchmark one provider. IRPF90 can write

@@ -1,5 +1,5 @@
 Array alignment
-===============
+---------------
 
 Array alignment is necessary to get performance on x86 architectures.
 Indeed, vector instructions (SSE,AVX,AVX-512) require the data to be

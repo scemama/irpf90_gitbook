@@ -1,5 +1,5 @@
 Inlining providers
-==================
+------------------
 
 For each IRP entity, a provider and a builder function are created.
 The provider always calls the builder. The ``--inline builders``

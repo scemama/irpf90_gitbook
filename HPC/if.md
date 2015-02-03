@@ -1,5 +1,5 @@
 Optimizing branches
-===================
+-------------------
 
 IRPF90 tries to provide the entities as soon as possible to avoid
 putting unnecessary ``if`` statements inside the loops. 
