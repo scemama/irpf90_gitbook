@@ -91,7 +91,33 @@ be generated :
 Embedded shell scripts
 ----------------------
 
-TODO
+When a programmer writes code, the input comes from the keyboard. With IRPF90
+it is possible to define sections where the input is not the keyboard but it
+comes from the output of script that will be executed at compile time. This
+is achieved with ``BEGIN_SHELL ... END_SHELL`` blocks. Any scripting language
+can be used.
+
+The first example will use Bash to generate code that will print the date
+when the program was compiled:
+
+``` irpf90
+program test
+  BEGIN_SHELL [ /bin/bash ]
+    echo print *, \'Compiled by `whoami` on `date`\'
+    echo print *, \'$PWD\'
+    echo print *, \'$(hostname)\'
+  END_SHELL
+end
+```
+
+```
+$ ./test
+ Compiled by scemama on Wed Feb 4 22:27:46 CET 2015
+ /tmp/irpf90_test
+ laptop
+```
+
+Another example uses a Python script to generate fast power function
 
 
 Conditional compilation
