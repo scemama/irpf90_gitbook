@@ -19,7 +19,7 @@ Here is an example of the ``uvwt`` example.
 This will generate the ``codelet_v.irp.f`` in which ``t`` is provided
 before the benchmark is run, and ``v`` will be built 100000 times:
 
-```fortran
+``` irpf90
 program codelet_v
   implicit none
   integer :: i

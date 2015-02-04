@@ -5,7 +5,7 @@ Inside each provider, subroutine and function it is recommended to write a few
 lines to explain what it does. The documentation is written inside a
 ``BEGIN_DOC ... END_DOC`` block.
 
-``` fortran
+``` irpf90
 BEGIN_PROVIDER [ double precision, fact, (0:fact_max) ]
   implicit none
 
@@ -58,7 +58,9 @@ d1 d2 d3 d4 d5 fact_max t u1 u2 v w
 
 Another very useful tool is the ``irpman`` command:
 
-    irpman <irp_entity>
+``` bash
+$ irpman <irp_entity>
+```
 
 This opens a man page for the desired IRP entity containing its description
 (given in the ``BEGIN_DOC ... END_DOC`` blocks), the file in which it is defined,
@@ -68,7 +70,7 @@ measure of how dangerous it can be to modify the IRP entity.
 
 Here is the man page displayed for the ``v`` entity:
 
-```
+``` man
 IRPF90 entities(l)         v        IRPF90 entities(l)
 
 Declaration
@@ -104,7 +106,7 @@ $ source $(which irpman)
 Now, pressing tab on the command line after irpman gives the list of all IRP
 entities:
 
-```
+``` bash
 $ irpman <TAB><TAB>
 d1            d4            fact_max      irp_example2  u2
 d2            d5            fu            t             v

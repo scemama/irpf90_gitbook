@@ -10,7 +10,7 @@ for any process image to access the IRP entities of all the other images.
 Let us first create convenient providers to cache the values of the ``num_images``
 and ``image_id`` functions that will be called very often.
 
-``` fortran
+``` irpf90
  BEGIN_PROVIDER [ integer, n_images ]
 &BEGIN_PROVIDER [ integer, image_id ]
  implicit none
@@ -24,7 +24,7 @@ END_PROVIDER
 
 Now, we create an array that will be different on each image:
 
-``` fortran
+``` irpf90
 BEGIN_PROVIDER [ real, X, (10) ]
  implicit none
  BEGIN_DOC
@@ -40,7 +40,7 @@ END_PROVIDER
 In the main program, you will want to print the value of ``X`` of images 1 and 2.
 Only the first image will print, so this will imply an ``if`` statement as
 
-``` fortran
+``` irpf90
 if (this_image() == 1) then
   print *, X
 endif
@@ -50,7 +50,7 @@ The problem is that ``X`` will need to be provided *only* if the ``image_id`` is
 equal to one. Here, we will have to force to provide ``X``, whatever the value
 of ``this_image``.
 
-``` fortran
+``` irpf90
 program caf_test
  implicit none
 
@@ -67,9 +67,10 @@ end
 
 In the ``Makefile``, set
 
-    IRPF90 = irpf90 --coarray 
-    FC     = ifort -coarray
-
+``` makefile
+IRPF90 = irpf90 --coarray 
+FC     = ifort -coarray
+```
 
 Build the program and the output will give:
 

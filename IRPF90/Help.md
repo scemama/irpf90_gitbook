@@ -7,7 +7,7 @@ Assertions
 Assertions are boolean expressions that must be true, to check the runtime behavior of the program.
 Assertions can be introduced with ``ASSERT`` keyword:
 
-```fortran
+``` irpf90
 
 BEGIN_PROVIDER [ integer, u2 ]
   call compute_u(d3,d4,u2)
@@ -52,7 +52,7 @@ are separated by two semi-colons (``;;``), and within a substitution definition 
 substitutions are separated by one semi-colon (``;``).
 
 
-```fortran
+``` irpf90
 BEGIN_TEMPLATE
 
   BEGIN_PROVIDER [ $type , $name ]
@@ -103,7 +103,7 @@ Instead, IRPF90 provides the ``IRP_IF ... IRP_ELSE ... IRP_ENDIF`` keywords to
 enable [conditional
 compilation](http://en.wikipedia.org/wiki/Conditional_compilation).
 
-``` fortran
+``` irpf90
 IRP_IF new_feature
 
   print *, 'New feature'

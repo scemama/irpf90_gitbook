@@ -9,7 +9,7 @@ if an entity is needed in *all* the branches it can safely be provided
 before the ``if`` statement.
 This IRPF90 code
 
-``` fortran
+``` irpf90
 if (condition) then
   print *, 'True', A
 else
@@ -33,7 +33,7 @@ endif
 
 If the IRP entity is not needed in all branches, it will be provided only inside
 those branches. The IRPF90 code
-``` fortran
+``` irpf90
 if (condition) then
   print *, 'True'
 else
@@ -44,7 +44,6 @@ endif
 generates the Fortran code
 
 ``` fortran
-
 if (condition) then
   print *, 'True'
 else
@@ -56,7 +55,8 @@ endif
 ```
 
 This can be avoided by using the ``PROVIDE`` statement before entering in the ``if`` statement.
-``` fortran
+
+``` irpf90
 PROVIDE A
 if (condition) then
   print *, 'True'

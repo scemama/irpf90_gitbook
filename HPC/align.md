@@ -31,7 +31,7 @@ kind of array alignments.
 Let's create a function that will calculate the length of the leading
 dimension such that it is a multiple of the alignment:
 
-``` fortran
+``` irpf90
 integer function align_double(i)
   implicit none
   integer, intent(in) :: i
@@ -48,7 +48,7 @@ end
 We can now create a matrix with all columns aligned, using the
 ``!DIR$ VECTOR ALIGNED`` directive safely.
 
-``` fortran
+``` irpf90
  BEGIN_PROVIDER [ integer, n ]
 &BEGIN_PROVIDER [ integer, n_aligned ]
   integer :: align_double

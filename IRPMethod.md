@@ -29,7 +29,7 @@ This program can be represented with the following tree:
 Writing the program in Fortran would require the programmer to have this tree
 in mind:
 
-```fortran
+``` fortran
 program compute_t
     implicit none
 
@@ -63,7 +63,7 @@ The same program can be written using the functional programming paradigm.
 Instead of telling the machine *what to do*, we can express *what we want*.
 Considering the program this way explores the tree from the root to the leaves.
 
-```fortran
+``` fortran
 program compute_t
     implicit none
 
@@ -97,7 +97,7 @@ It appears now that the arguments of the functions are not *variables* but
 *parameters*. In that case, we can put the parameters inside the functions,
 as they will always be the same.
 
-```fortran
+``` fortran
 program compute_t
     implicit none
     integer, external :: t
@@ -174,7 +174,7 @@ For each node we write a *builder*, which is a subroutine that builds
 a *valid* value of an entity (according to the equations given at the beginning
 of this section).
 
-```fortran
+``` fortran
 subroutine build_t(x,y,result)
     implicit none
     integer, intent(in)  :: x, y
@@ -220,7 +220,7 @@ Before writing the providers, we need to create a *global* variable for each
 node of the tree, as well as a flag to mark it as built.  For convenience, we
 shall put all of them in a Fortran module `nodes`:
 
-```fortran
+``` fortran
 module nodes
 
     ! Nodes
@@ -246,7 +246,7 @@ module nodes
 end module
 ```
 
-```fortran
+``` fortran
 subroutine provide_t
     use nodes
     implicit none
@@ -310,7 +310,7 @@ end
 
 And the main program is just
 
-```fortran
+``` fortran
 program test
     use nodes
     implicit none

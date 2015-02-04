@@ -88,7 +88,7 @@ file names and line numbers of the original ``*.irp.f`` file.
 
 Let us introduce an error in the IRPF90 code (a missing closing parenthesis)
 
-``` fortran
+``` irpf90
 BEGIN_PROVIDER [ integer, u2 ]
   implicit none
   BEGIN_DOC
@@ -132,7 +132,7 @@ a string local variable named ``irp_here``, which contains the name of the
 current context. This variable is very helpful for users to print debug/error
 messages:
 
-```
+``` irpf90
    print *, irp_here//' : a = ', a
 ```
 
