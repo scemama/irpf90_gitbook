@@ -18,7 +18,11 @@
   * [Inlining providers](HPC/inline.md)
   * [OpenMP](HPC/openmp.md)
   * [CoArray Fortran](HPC/caf.md)
-* [Index of command-line options](IRPF90/CLI.md)
 * [Examples](Examples/Examples.md)
+  * [A molecular dynamics code](Examples/verlet.md)
+  * [Using scripts to generate specialized functions](Examples/power.md)
+  * [CoArray Fortran example](Examples/coarray.md)
+  * [Introspection](Examples/get_doc.md)
+* [Index of command-line options](IRPF90/CLI.md)
  
 
