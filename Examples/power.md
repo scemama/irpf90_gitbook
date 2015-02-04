@@ -53,9 +53,101 @@ for i in range(POWER_MAX):
 
 ```
 
+Executing this script gives
+``` irpf90
+double precision function power_1(x1)
+ double precision, intent(in) :: x1
+ BEGIN_DOC
+!  Fast computation of x**1
+ END_DOC
+ power_1 = x1
+end
+
+double precision function power_2(x1)
+ double precision, intent(in) :: x1
+ BEGIN_DOC
+!  Fast computation of x**2
+ END_DOC
+ double precision :: x2
+ x2 = x1 * x1
+ power_2 = x2
+end
+
+double precision function power_3(x1)
+ double precision, intent(in) :: x1
+ BEGIN_DOC
+!  Fast computation of x**3
+ END_DOC
+ double precision :: x2, x3
+ x2 = x1 * x1
+ x3 = x2 * x1
+ power_3 = x3
+end
+
+...
+
+
+double precision function power_17(x1)
+ double precision, intent(in) :: x1
+ BEGIN_DOC
+!  Fast computation of x**17
+ END_DOC
+ double precision :: x2, x4, x8, x16, x17
+ x2 = x1 * x1
+ x4 = x2 * x2
+ x8 = x4 * x4
+ x16 = x8 * x8
+ x17 = x16 * x1
+ power_17 = x17
+end
+
+double precision function power_18(x1)
+ double precision, intent(in) :: x1
+ BEGIN_DOC
+!  Fast computation of x**18
+ END_DOC
+ double precision :: x2, x4, x8, x9, x18
+ x2 = x1 * x1
+ x4 = x2 * x2
+ x8 = x4 * x4
+ x9 = x8 * x1
+ x18 = x9 * x9
+ power_18 = x18
+end
+
+double precision function power_19(x1)
+ double precision, intent(in) :: x1
+ BEGIN_DOC
+!  Fast computation of x**19
+ END_DOC
+ double precision :: x2, x4, x8, x9, x18, x19
+ x2 = x1 * x1
+ x4 = x2 * x2
+ x8 = x4 * x4
+ x9 = x8 * x1
+ x18 = x9 * x9
+ x19 = x18 * x1
+ power_19 = x19
+end
+
+double precision function power_20(x1)
+ double precision, intent(in) :: x1
+ BEGIN_DOC
+!  Fast computation of x**20
+ END_DOC
+ double precision :: x2, x4, x5, x10, x20
+ x2 = x1 * x1
+ x4 = x2 * x2
+ x5 = x4 * x1
+ x10 = x5 * x5
+ x20 = x10 * x10
+ power_20 = x20
+end
+```
+
 Then, we create a ``benchmark.irp.f`` file that contains provider to compute
-the `n`-th power of `x` using the traditional ``x**n``, and another provider
-that will use our specialized functions
+the 20 first `n`-th power of `x` using the traditional ``x**n``, and another
+provider that will use our specialized functions
 
 ``` irpf90
 BEGIN_PROVIDER [ double precision, x ]
