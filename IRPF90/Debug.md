@@ -163,7 +163,37 @@ array.
 Debugging an embedded script
 ----------------------------
 
-TODO
+Embedded shell scripts may be difficult to debug. The ``--preprocess`` option
+helps the programmer to check the files IRPF90 will produce after executing
+the scripts. For example, consider the file named ``test.irp.f``:
+
+``` irpf90
+program test
+  BEGIN_SHELL [ /bin/bash ]
+cat << EOF | sed 's/\(.*\)/echo "\1\"/g'
+    print *, 'Compiled by `whoami` on `date`'
+    print *, '$PWD'
+    print *, '$(hostname)'
+EOF
+  END_SHELL
+end
+```
+
+The following command displays the produced Fortran file:
+
+``` shell
+$ irpf90 --preprocess test.irp.f
+program irp_program
+ call test
+ call irp_finalize_62332927()
+end program
+subroutine test
+  character*(4) :: irp_here = 'test'
+echo "    print *, 'Compiled by scemama on Fri Feb  6 19:05:04 CET 2015'"
+echo "    print *, '/home/scemama/tmp/power'"
+echo "    print *, 'lpqdh82'"
+end
+```
 
 
 Debugging ``TOUCH`` statements
