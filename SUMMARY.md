@@ -22,6 +22,7 @@
   * [A molecular dynamics code](Examples/verlet.md)
   * [Using scripts to generate specialized functions](Examples/power.md)
   * [CoArray Fortran example](Examples/coarray.md)
+  * [Templated sort routine](Examples/sort.md)
   * [Introspection](Examples/get_doc.md)
 * [Index of command-line options](IRPF90/CLI.md)
  

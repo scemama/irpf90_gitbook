@@ -97,15 +97,17 @@ comes from the output of script that will be executed at compile time. This
 is achieved with ``BEGIN_SHELL ... END_SHELL`` blocks. Any scripting language
 can be used.
 
-The first example will use Bash to generate code that will print the date
+This example will use Bash to generate code that will print the date
 when the program was compiled:
 
 ``` irpf90
 program test
   BEGIN_SHELL [ /bin/bash ]
-    echo print *, \'Compiled by `whoami` on `date`\'
-    echo print *, \'$PWD\'
-    echo print *, \'$(hostname)\'
+cat << EOF | sed 's/\(.*\)/echo "\1\"/g'
+    print *, 'Compiled by `whoami` on `date`'
+    print *, '$PWD'
+    print *, '$(hostname)'
+EOF
   END_SHELL
 end
 ```
@@ -117,8 +119,19 @@ $ ./test
  laptop
 ```
 
-Another example uses a Python script to generate fast power function
+Another example generates 100 functions with Python:
 
+``` python
+BEGIN_SHELL [ /usr/bin/python ]
+for i in range(100):
+    print """
+       double precision function times_%d(x)
+         double precision, intent(in) :: x
+         times_%d = x*%d
+       end
+    """%locals()
+END_SHELL
+```
 
 Conditional compilation
 -----------------------
