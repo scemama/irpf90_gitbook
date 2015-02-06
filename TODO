@@ -1,7 +1,6 @@
 * Debugging an embedded script : IRPF90/Debug.ml
 * IRPF90/Makefile
 * HPC/HPC.md : intro
-* HPC/substitution.md : variable substitution
 * Examples/Examples.md : intro
 * Examples/coarray.md
 * Examples/get_doc.md : text
