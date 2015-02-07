@@ -34,8 +34,8 @@ BEGIN_PROVIDER [ integer*8, N_steps ]
 END_PROVIDER
 ```
 
-The ``N_blocks`` entity is the total number of independent calculations of
-$$\pi$$ one will do in a single process.
+The ``N_blocks`` entity is the total number of independent calculations
+of $$\pi$$ one will do in a single process.
 
 ``` irpf90
 BEGIN_PROVIDER [ integer, N_blocks ]
@@ -91,7 +91,9 @@ END_PROVIDER
 
 
 Let us now write the main program in ``test_mono.irp.f``. It will print the
-running average and error bar of $$\pi$$ on the standard output:
+running average and error bar of $$\pi$$ on the standard output. At the end
+of each loop cycle, the ``pi_block`` entity is freed, such that it will be
+freshly provided at the beginning of the next loop iteration.
 
 ``` irpf90
 program test_mono
@@ -146,7 +148,10 @@ Now, we will write the prallel version of the program. First we will add to the
 ``Makefile`` the ``--coarray`` option to ``irpf90`` and the ``-coarray`` option
 to ``ifort``.
 
-We can now write the parallel main program:
+We can now write the parallel main program. We use a temporary array that
+will fetch all the remote values of ``pi_block``. After a synchronization
+directive (``SYNC ALL``), the master process can compute the running average
+and error bar, and print the result.
 
 ``` irpf90
 program test_caf
