@@ -1,11 +1,9 @@
 * HPC/HPC.md : intro
 * Examples/Examples.md : intro
-* Examples/coarray.md
 * Examples/get_doc.md : text
 * Examples/verlet.md
 * IRPF90/touch.md
   * Touch
-  * Free met is_built a false
 * IRPF90/Help : 
   * += 
   * declarations n'importe ou
