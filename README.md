@@ -7,7 +7,7 @@ generates the "glue code" that will link all these kernels together to produce
 the expected result, handling all the relationships between the variables. In
 this way, even large codes can still be under control.
 
-IRPF90 (1.4.4) is free software under the GPL licence available on
+IRPF90 (1.5.0) is free software under the GPL licence available on
 [GitHub](https://github.com/scemama/irpf90).
 
 

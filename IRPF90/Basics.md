@@ -176,6 +176,8 @@ allocated with the required dimensions, and then the code inside the provider
 is executed. Note that if the ``fact`` array is not used in the program, it
 will never be allocated.
 
+### Freeing entities
+
 It is possible to free memory by using the ``FREE`` keyword.
 
 ``` irpf90
@@ -186,9 +188,11 @@ BEGIN_PROVIDER [ double precision, table2, (size(table1,1)) ]
 END_PROVIDER
 ```
 
-When ``table1`` is freed, the entity ``table1`` is marked as *non-valid*, such that
-if it is needed again, it will be reallocated and rebuilt.
+When ``table1`` is freed, the entity ``table1`` is marked as *non-valid*, such
+that if it is needed again, it will be reallocated and rebuilt.
 
+When applying the ``FREE`` keyword to scalar entities, those are just marked
+as non-built.
 
 ### Forcing to provide entities
 
@@ -206,4 +210,16 @@ end
 
 ``u`` and ``v`` will be provided before entering in the scope of subroutine
 ``s``.
+
+This second example forces to re-provide the ``random_x`` entity at every loop
+cycle (version >= 1.5.0):
+
+```
+do i=1,N
+  PROVIDE random_x
+  print *, random_x
+  FREE random_x
+end do
+```
+
 
