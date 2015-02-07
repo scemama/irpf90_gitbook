@@ -22,7 +22,7 @@ Single core program
 
 Let us first write a single core program. We write the providers in the
 ``pi.irp.f`` file. The ``N_steps`` entity defines the number of Monte-Carlo
-steps to compute the value of $$pi$$ in a single process.
+steps to compute the value of $$\pi$$ in a single process.
 
 ``` irpf90
 BEGIN_PROVIDER [ integer*8, N_steps ]
@@ -35,7 +35,7 @@ END_PROVIDER
 ```
 
 The ``N_blocks`` entity is the total number of independent calculations of
-$$pi$$ one will do in a single process.
+$$\pi$$ one will do in a single process.
 
 ``` irpf90
 BEGIN_PROVIDER [ integer, N_blocks ]
@@ -62,7 +62,7 @@ subroutine init_seed(i)
 end
 ```
 
-``pi_block`` is the Monte-Carlo evaluation of $$pi$$ over ``N_steps``.
+``pi_block`` is the Monte-Carlo evaluation of $$\pi$$ over ``N_steps``.
 
 ```
 BEGIN_PROVIDER [ double precision, pi_block ]
@@ -91,7 +91,7 @@ END_PROVIDER
 
 
 Let us now write the main program in ``test_mono.irp.f``. It will print the
-running average and error bar of $$pi$$ on the standard output:
+running average and error bar of $$\pi$$ on the standard output:
 
 ``` irpf90
 program test_mono
