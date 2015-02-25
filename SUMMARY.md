@@ -7,6 +7,7 @@
   * [IRPF90 Basics](IRPF90/Basics.md)
   * [Automatic documentation](IRPF90/Documentation.md)
   * [Helping features](IRPF90/Help.md)
+  * [Modifying entities outside of providers](IRPF90/Touch.md)
   * [Debugging](IRPF90/Debug.md)
   * [Makefile configuration](IRPF90/Makefile.md)
 * [HPC-oriented functionalities](HPC/hpc.md)
