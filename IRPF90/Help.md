@@ -87,6 +87,38 @@ be generated :
 * replacing ``$type`` with ``real`` and ``name`` with ``y``
 * replacing ``$type`` with ``real`` and ``name`` with ``z``
 
+Augmented assignment operators
+------------------------------
+
+These patterns are very frequent in scientific applications:
+
+* ``a = a + b``
+* ``a = a * b``
+
+If ``a`` has a very explicit name, this pattern can give:
+``` fortran
+my_very_explicit_name(dim1,dim2,dim3) =  my_very_explicit_name(dim1,dim2,dim3) & 
+  + b*c - d
+```
+
+Such constructs are not optimal:
+
+* The name of the variable is long, so the line has to be split and the code is
+  less readable
+* The programmer is likely to make a typo by typing twice a very long variable name. This
+  is likely to be caught by the compiler.
+* When the programmer modifies a dimension in the left member, he has to modify it
+  accordingly in the right member. Such errors will not be caught by the compiler.
+
+Augmented assignment operators cure these problems by allowing the programmer to write:
+
+```irpf90
+my_very_explicit_name(dim1,dim2,dim3) +=  b*c - d
+```
+
+IRPF90 introduces three operators: ``+=``, ``-=``, and ``*=``. Divisions could not be
+added since ``/=`` already means "not equal". To divide using an augmented
+assignment operator, ``*= 1. /`` can be used to multiply by the inverse.
 
 Embedded shell scripts
 ----------------------
