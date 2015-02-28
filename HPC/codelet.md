@@ -27,9 +27,7 @@ program codelet_v
   integer, parameter :: irp_imax = 100000
 
   PROVIDE t
-
   call provide_v
-
   double precision :: irp_rdtsc
 
   call cpu_time(cpu_0)
@@ -53,7 +51,6 @@ When the run is finished, the number of CPU cycles and the time in seconds
 is given for one execution of the provider:
 
 ```
- -----------
  Cycles:
    17.6698700000000     
  Seconds:
