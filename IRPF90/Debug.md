@@ -170,7 +170,7 @@ the scripts. For example, consider the file named ``test.irp.f``:
 ``` irpf90
 program test
   BEGIN_SHELL [ /bin/bash ]
-cat << EOF | sed 's/\(.*\)/echo "\1\"/g'
+cat << EOF 
     print *, 'Compiled by `whoami` on `date`'
     print *, '$PWD'
     print *, '$(hostname)'
@@ -185,13 +185,13 @@ The following command displays the produced Fortran file:
 $ irpf90 --preprocess test.irp.f
 program irp_program
  call test
- call irp_finalize_62332927()
+ call irp_finalize_1624498827()
 end program
 subroutine test
   character*(4) :: irp_here = 'test'
-echo "    print *, 'Compiled by scemama on Fri Feb  6 19:05:04 CET 2015'"
-echo "    print *, '/home/scemama/tmp/power'"
-echo "    print *, 'lpqdh82'"
+    print *, 'Compiled by scemama on Mon Mar  9 18:41:50 CET 2015'
+    print *, '/dev/shm/tmp'
+    print *, 'lpqlx139'
 end
 ```
 
