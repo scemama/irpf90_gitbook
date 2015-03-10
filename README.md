@@ -13,7 +13,3 @@ IRPF90 (1.5.0) is free software under the GPL licence available on
 
 -----
 
-This gitbook is not finished yet...please be patient.
-
-![100](http://www.harvestmeat.com/wp-content/uploads/2010/09/underconstruction-Copy.jpg)
-
