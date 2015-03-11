@@ -104,7 +104,7 @@ subroutine verlet
     velocity(k,i) += 0.5*tstep*acceleration(k,i)
    enddo
   enddo
-  TOUCH coord velocity
+  TOUCH coord velocity mass
   do i=1,Natoms
    do k=1,3
     velocity(k,i) += 0.5*tstep*acceleration(k,i)
