@@ -89,92 +89,28 @@ END_PROVIDER
   ! Time step for the dynamics
   END_DOC
   print *, 'Time step?'
-  coord(k,i) += tstep*velocity(k,i) + 0.5d0*tstep2*acceleration(k,i)
-        velocity(k,i) += 0.5d0*tstep*acceleration(k,i)
-      enddo
-    enddo
-    ! (Touch also mass because it is provided with coord)
-    TOUCH coord mass velocity
-    do i=1,Natoms
-      do k=1,3
-        velocity(k,i) += 0.5d0*tstep*acceleration(k,i)
-      enddo
-    enddo
-    TOUCH velocity
-  enddo
-end subroutine
-```
-
-8. Handling files
------------------
-
-### Exercise
-
-Add a call to a printing subroutine at each step of the dynamics. The printing
-subroutine will print th coordinates of the atoms in a file. To do this,
-uncomment the call statement in the previous exercise and write the
-``print_data`` subroutine as well as the associated providers.
-
-### Solution
-
-File ``files.irp.f``
-``` irpf90
-integer function getUnitAndOpen(f,mode)
-  implicit none
-  BEGIN_DOC
-  ! Finds an available unit number and opens the file
-  END_DOC
-  character*(*)                  :: f
-  character*(128)                :: new_f
-  integer                        :: iunit
-  logical                        :: is_open, exists
-  character                      :: mode
-
-  is_open = .True.
-  iunit = 10
-  new_f = f
-  do while (is_open)
-    inquire(unit=iunit,opened=is_open)
-    if (.not.is_open) then
-      getUnitAndOpen = iunit
-    endif
-    iunit = iunit+1
-  enddo
-  if (mode.eq.'r') then
-    inquire(file=f,exist=exists)
-    if (.not.exists) then
-      open(unit=getUnitAndOpen,file=f,status='NEW',action='WRITE')
-      close(unit=getUnitAndOpen)
-    endif
-    open(unit=getUnitAndOpen,file=f,status='OLD',action='READ')
-  else if (mode.eq.'w') then
-    open(unit=getUnitAndOpen,file=new_f,status='UNKNOWN',action='WRITE')
-  else if (mode.eq.'a') then
-    open(unit=getUnitAndOpen,file=new_f,status='UNKNOWN',            &
-        action='WRITE',position='APPEND')
-  else if (mode.eq.'x') then
-    open(unit=getUnitAndOpen,file=new_f)
-  endif
-end function getUnitAndOpen
-
-BEGIN_PROVIDER [ integer, output ]
-  implicit none
-  BEGIN_DOC
-  !  File unit corresponding to the output file.
-  END_DOC
-  integer                        :: getUnitAndOpen
-  output = getUnitAndOpen('output','w')
+ ASSERT (tstep > 0.)
+ tstep2 = tstep*tstep
 END_PROVIDER
 
-subroutine print_data(is)
-  implicit none
-  integer, intent(in)            :: is
-  write(output,*) Natoms
-  write(output,'(I8, 3(2X, E15.8))') is, V, T, E_tot
-  integer                        :: i
+subroutine verlet
+ implicit none
+ integer :: is, i, k
+ do is=1,Nsteps
+  call print_data(is)     ! A de-commenter pour l'exercice suivant
   do i=1,Natoms
-    write(output,'(A,3(2X,F15.8))') 'Ar', coord(:,i)
+   do k=1,3
+    coord(k,i) += tstep*velocity(k,i) + 0.5*tstep2*acceleration(k,i)
+    velocity(k,i) += 0.5*tstep*acceleration(k,i)
+   enddo
   enddo
-end subroutine print_data
+  TOUCH coord velocity
+  do i=1,Natoms
+   do k=1,3
+    velocity(k,i) += 0.5*tstep*acceleration(k,i)
+   enddo
+  enddo
+  TOUCH velocity
+ enddo
+end subroutine
 ```
-
