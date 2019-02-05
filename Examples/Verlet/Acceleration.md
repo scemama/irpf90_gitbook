@@ -160,10 +160,10 @@ BEGIN_PROVIDER [ double precision, V_grad_numeric, (3,Natoms) ]
   do i=1,Natoms
     do k=1,3
       coord(k,i) += dstep   ! Move coordinate x_i to x_i + delta 
-      TOUCH coord           ! Tell IRPF90 that coord has been changed
+      TOUCH coord mass      ! Tell IRPF90 that coord has been changed
       V_grad_numeric(k,i) = V      ! V is here V(x_i + delta)
       coord(k,i) -= 2.d0*dstep     ! Move coordinate x_i to x_i - delta
-      TOUCH coord           ! Tell IRPF90 that coord has been changed
+      TOUCH coord mass      ! Tell IRPF90 that coord has been changed
       V_grad_numeric(k,i) -= V      ! V is here V(x_i - delta)
       V_grad_numeric(k,i) *= .5d0/dstep
       coord(k,i) += dstep   ! Put back x_i to its initial position
@@ -172,9 +172,9 @@ BEGIN_PROVIDER [ double precision, V_grad_numeric, (3,Natoms) ]
                             ! - out of the loop, it is soft-touched
     enddo
   enddo
-  SOFT_TOUCH coord   ! Does not re-provide the current entities. Here, V will
-                     ! not be re-computed. This reduced the CPU time, but is
-                     ! dangerous.
+  SOFT_TOUCH coord mass ! Does not re-provide the current entities. Here, V will
+                        ! not be re-computed. This reduced the CPU time, but is
+                        ! dangerous.
 END_PROVIDER
 
 BEGIN_PROVIDER [ double precision, V_grad, (3,Natoms) ]

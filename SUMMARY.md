@@ -28,6 +28,7 @@
     * [Computing the total energy](Examples/Verlet/TotalEnergy.md)
     * [Computing the acceleration](Examples/Verlet/Acceleration.md)
     * [Implementing the molecular dynamics](Examples/Verlet/Dynamics.md)
+    * [Handling files](Examples/Verlet/Files.md)
   * [Using scripts to generate specialized functions](Examples/power.md)
   * [CoArray Fortran example](Examples/coarray.md)
   * [Templated sort routine](Examples/sort.md)
