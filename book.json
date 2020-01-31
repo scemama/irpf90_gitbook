@@ -6,14 +6,6 @@
         "sidebar": {
             "IRPF90 web site": "http://irpf90.ups-tlse.fr"
         },
-
-        "sharing": {
-            "google": null,
-            "facebook": null,
-            "twitter": null,
-            "weibo": null,
-            "all": null
-        },
     },
     "pdf": {
         "pageNumbers": true,
@@ -24,8 +16,5 @@
             "left": 72,
             "top": 36,
             "bottom": 36
-        },
-        "headerTemplate": null,
-        "footerTemplate": null
         }
 }
