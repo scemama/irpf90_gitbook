@@ -14,7 +14,7 @@
             "weibo": null,
             "all": null
         },
-
+    },
     "pdf": {
         "pageNumbers": true,
         "fontSize": 14,
@@ -27,4 +27,5 @@
         },
         "headerTemplate": null,
         "footerTemplate": null
+        }
 }
